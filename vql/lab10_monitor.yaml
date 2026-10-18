@@ -1,0 +1,11 @@
+name: Custom.Server.Lab10AlertMonitor
+description: Monitor laboratory test alerts
+type: SERVER_EVENT
+
+sources:
+  - query: |
+      SELECT *
+      FROM watch_monitoring(
+        artifact="Server.Internal.Alerts"
+      )
+      WHERE name = "Lab10_Test_Alert"

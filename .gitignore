@@ -1,0 +1,20 @@
+# Credentials and sensitive configuration
+.env
+*.pem
+*.key
+*.p12
+*.pfx
+*client.config.yaml
+*server.config.yaml
+
+# Forensic evidence and memory dumps
+evidence/
+forensic/
+*.dmp
+*.raw
+*.mem
+*.evtx
+
+# Executables and logs
+*.exe
+*.log

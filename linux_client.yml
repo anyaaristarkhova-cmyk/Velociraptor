@@ -1,0 +1,30 @@
+---
+- name: Manage Velociraptor Linux client
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Check Velociraptor binary
+      ansible.builtin.stat:
+        path: /usr/local/bin/velociraptor_client
+      register: velo_binary
+
+    - name: Check Velociraptor config
+      ansible.builtin.stat:
+        path: /etc/velociraptor/client.config.yaml
+      register: velo_config
+
+    - name: Verify existing installation
+      ansible.builtin.assert:
+        that:
+          - velo_binary.stat.exists
+          - velo_config.stat.exists
+        fail_msg: "Velociraptor installation is missing"
+
+    - name: Ensure Velociraptor is running
+      ansible.builtin.systemd_service:
+        name: velociraptor_client.service
+        state: started
+        enabled: true
